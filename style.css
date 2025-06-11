@@ -2,17 +2,17 @@ body {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif; /* Uma fonte mais comum */
-    background-color: #f4f4f4; /* Cor de fundo suave para o corpo */
+    background-color: #d1caca; /* Cor de fundo suave para o corpo */
     color: #333;
 }
 
 /* Estilo da Navegação */
 nav {
     background-color: #2d2d2d;
-    padding: 15px 20px; /* Ajuste o padding */
+    padding: 25px 30px; /* Ajuste o padding */
     text-align: center; /* Alinha os links à direita */
     display: flex;
-    justify-content:center; /* Garante que os itens vão para a direita */
+    justify-content: center; /* Garante que os itens vão para o centro */
     align-items: center;
 }
 
@@ -28,6 +28,11 @@ nav a:hover {
     color: #ffd700; /* Um amarelo mais vibrante no hover */
 }
 
+nav a.ativo {
+    color: #ffd700;
+    border-bottom: 2px solid #ffd700;
+    padding-bottom: 3px;
+}
 /* Seção Hero (Capa) */
 .hero {
     height: 380px; /* Altura fixa para a seção hero */
@@ -49,12 +54,7 @@ nav a:hover {
     width: 100%;
     height: 100%;
     background-color: #d6b10e; /* Cor amarela do design */
-    /* Usando clip-path para criar a forma inclinada/curvada */
-    /* Este clip-path tenta simular uma forma similar à imagem */
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%); /* Ajuste este valor para a curva exata */
-    /* Para uma curva mais suave, como na imagem original, pode ser preciso usar SVG ou um background-image com a forma */
-    /* Exemplo de clip-path com curva mais suave: */
-    /* clip-path: ellipse(150% 100% at 50% 0%); */
     z-index: 1; /* Garante que fique atrás do conteúdo */
 }
 
@@ -133,18 +133,18 @@ nav a:hover {
 
 /* Estilos para as seções de conteúdo */
 section {
-    padding: 60px 20px; /* Padding maior para as seções */
+    padding: 30px 220px; /* Padding maior para as seções */
     max-width: 900px;
     margin: auto;
     background-color: #fff; /* Fundo branco para as seções de conteúdo */
-    border-radius: 8px; /* Bordas arredondadas */
+    border-radius: 15px; /* Bordas arredondadas */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Sombra suave */
     margin-bottom: 30px; /* Espaço entre as seções */
 }
 
 section h2 {
-    color: #d6b10e; /* Cor roxa para os títulos das seções */
-    font-size: 2.2em;
+    color: #d6b10e; /* Cor amarela para os títulos das seções */
+    font-size: 3.2em;
     margin-bottom: 25px;
     border-bottom: 2px solid #eee; /* Linha sutil abaixo do título */
     padding-bottom: 10px;
@@ -159,8 +159,16 @@ ul li {
     margin-bottom: 10px;
     padding-left: 25px;
     position: relative;
-    font-size: 1.1em;
+    font-size: 1.3em;
+    display: flex; /* Adicionado para alinhar o texto do projeto e o botão */
+    align-items: center; /* Alinha verticalmente */
+    justify-content: space-between; /* Distribui espaço entre o texto e o botão */
 }
+
+ul li span { /* Estilo para o nome do projeto */
+    flex-grow: 1; /* Permite que o nome do projeto ocupe o máximo de espaço */
+}
+
 
 ul li::before {
     content: '•'; /* Marcador de lista personalizado */
@@ -171,14 +179,35 @@ ul li::before {
     top: 0;
 }
 
+/* Estilo para o botão "Acessar" */
+.botao-projeto {
+    display: inline-block; /* Faz com que o link se comporte como um bloco para padding/margin */
+    background-color: #d6b10e; /* Cor de fundo roxa para o botão */
+    color: #fff; /* Cor do texto do botão */
+    padding: 8px 15px; /* Espaçamento interno do botão */
+    border-radius: 9px; /* Bordas arredondadas */
+    text-decoration: none; /* Remove sublinhado do link */
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-left: 20px; /* Espaço entre o nome do projeto e o botão */
+    flex-shrink: 0; /* Impede que o botão encolha */
+}
+
+.botao-projeto:hover {
+    background-color: #665508; /* Cor mais escura no hover */
+    transform: translateY(-2px); /* Efeito de elevação sutil */
+}
+
+
 /* Estilo do Footer */
 footer {
-    background-color: #2d2d2d; /* Cor mais escura para o footer */
-    color: #aaa;
+    background-color: #d6b10e; /* Cor mais escura para o footer */
+    color: #2d2d2d;
     text-align: center;
     padding: 30px 20px;
     margin-top: 40px;
-    font-size: 0.9em;
+    font-size: 1.0em;
 }
 
 /* Animações (mantive as suas) */
@@ -224,13 +253,16 @@ section p a {
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
+    font-size: 1.0em;
 }
 
 section p a:hover {
     color: #2d2d2d;
     text-decoration: underline;
 }
-
+section p{
+    font-size: 1.3em;
+}
 /* Estilos responsivos básicos */
 @media (max-width: 768px) {
     .hero-content {
@@ -266,11 +298,35 @@ section p a:hover {
     }
 
     section {
-        padding: 30px 15px;
+        padding: 30px 15px; /* Reduz o padding horizontal para telas menores */
     }
 
     section h2 {
         font-size: 1.8em;
+    }
+
+    /* Responsividade para a lista de projetos e botões */
+    ul li {
+        flex-direction: column; /* Empilha nome e botão em telas menores */
+        align-items: flex-start; /* Alinha o texto à esquerda */
+        padding-left: 0; /* Remove padding extra do bullet point, pois ele será movido */
+    }
+
+    ul li::before {
+        position: static; /* Volta para o posicionamento padrão para que fique na frente */
+        margin-right: 5px; /* Espaço entre o bullet e o texto */
+    }
+
+    ul li span {
+        margin-bottom: 10px; /* Espaço entre o nome do projeto e o botão */
+        text-align: left; /* Garante que o texto fique à esquerda */
+        width: 100%; /* Ocupa a largura total */
+    }
+
+    .botao-projeto {
+        width: 100%; /* Botão ocupa a largura total em mobile */
+        text-align: center; /* Centraliza o texto do botão */
+        margin-left: 0; /* Remove margem esquerda */
     }
 }
 
