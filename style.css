@@ -10,10 +10,14 @@ body {
 nav {
     background-color: #2d2d2d;
     padding: 15px 20px; /* Ajuste o padding */
-    text-align: center; /* Alinha os links à direita */
+    text-align: right; /* Alinha os links à direita */
     display: flex;
-    justify-content:center; /* Garante que os itens vão para a direita */
+    justify-content: flex-end; /* Garante que os itens vão para a direita */
     align-items: center;
+    flex-wrap: wrap; /* Adicionado para que os links quebrem linha se não couberem */
+    position: sticky; /* Fixa a navegação no topo */
+    top: 0;
+    z-index: 100; /* Garante que a nav fique acima de outros elementos */
 }
 
 nav a {
@@ -22,6 +26,7 @@ nav a {
     margin-left: 25px; /* Espaçamento maior entre os links */
     font-weight: bold;
     transition: color 0.3s ease;
+    padding: 5px 0; /* Adiciona um pouco de padding vertical para facilitar o clique em mobile */
 }
 
 nav a:hover {
@@ -38,6 +43,8 @@ nav a:hover {
     position: relative; /* Essencial para posicionar o pseudo-elemento */
     overflow: hidden; /* Garante que a forma amarela não vaze */
     color: #fff; /* Cor do texto no hero */
+    padding: 20px; /* Adiciona padding para garantir que o conteúdo não cole nas bordas em mobile */
+    box-sizing: border-box; /* Garante que o padding seja incluído na altura/largura */
 }
 
 /* Pseudo-elemento para a forma amarela curvada */
@@ -49,24 +56,20 @@ nav a:hover {
     width: 100%;
     height: 100%;
     background-color: #d6b10e; /* Cor amarela do design */
-    /* Usando clip-path para criar a forma inclinada/curvada */
-    /* Este clip-path tenta simular uma forma similar à imagem */
     clip-path: polygon(0 0, 100% 0, 100% 80%, 0% 100%); /* Ajuste este valor para a curva exata */
-    /* Para uma curva mais suave, como na imagem original, pode ser preciso usar SVG ou um background-image com a forma */
-    /* Exemplo de clip-path com curva mais suave: */
-    /* clip-path: ellipse(150% 100% at 50% 0%); */
     z-index: 1; /* Garante que fique atrás do conteúdo */
 }
 
 .hero-content {
     display: flex;
+    flex-direction: row; /* Padrão para desktop: foto e texto lado a lado */
     align-items: center;
     justify-content: flex-start; /* Alinha o conteúdo à esquerda dentro do hero-content */
     max-width: 1200px; /* Aumenta a largura máxima para o conteúdo */
-    width: 90%; /* Ocupa 90% da largura disponível */
-    padding: 20px;
+    width: 100%; /* Ocupa 100% da largura disponível dentro do padding do .hero */
     position: relative; /* Garante que o conteúdo fique acima do ::before */
     z-index: 2; /* Conteúdo acima do fundo amarelo */
+    box-sizing: border-box;
 }
 
 .foto-perfil {
@@ -77,6 +80,7 @@ nav a:hover {
     object-fit: cover;
     box-shadow: 0 0 25px rgba(0, 0, 0, 0.4); /* Sombra mais visível */
     margin-right: 50px; /* Espaçamento entre a foto e o texto */
+    flex-shrink: 0; /* Impede que a imagem encolha em telas pequenas */
     transition: transform 0.3s ease;
 }
 
@@ -86,6 +90,7 @@ nav a:hover {
 
 .hero-info {
     text-align: left; /* Alinha o texto à esquerda */
+    flex-grow: 1; /* Permite que o info ocupe o espaço restante */
 }
 
 .hero-subtitulo {
@@ -99,6 +104,7 @@ nav a:hover {
     margin: 0;
     color: #fff; /* Cor branca para o nome */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra no texto */
+    word-wrap: break-word; /* Garante que o texto longo quebre a linha */
 }
 
 .hero-cargo {
@@ -106,6 +112,7 @@ nav a:hover {
     margin-top: 10px;
     font-weight: normal;
     color: #fff; /* Cor branca para o cargo */
+    word-wrap: break-word; /* Garante que o texto longo quebre a linha */
 }
 
 .hero-tech-icons {
@@ -113,6 +120,7 @@ nav a:hover {
     display: flex; /* Para alinhar os ícones lado a lado */
     gap: 15px; /* Espaçamento entre os ícones */
     flex-wrap: wrap; /* Permite que os ícones quebrem linha se não houver espaço */
+    justify-content: flex-start; /* Alinha os ícones à esquerda por padrão */
 }
 
 .hero-tech-icons img {
@@ -135,19 +143,20 @@ nav a:hover {
 section {
     padding: 60px 20px; /* Padding maior para as seções */
     max-width: 900px;
-    margin: auto;
+    margin: 30px auto; /* Adicionado margin-top e bottom para separar do hero e footer */
     background-color: #fff; /* Fundo branco para as seções de conteúdo */
     border-radius: 8px; /* Bordas arredondadas */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); /* Sombra suave */
-    margin-bottom: 30px; /* Espaço entre as seções */
+    box-sizing: border-box; /* Garante que o padding seja incluído na largura */
 }
 
 section h2 {
-    color: #d6b10e; /* Cor roxa para os títulos das seções */
+    color: #8a2be2; /* Cor roxa para os títulos das seções */
     font-size: 2.2em;
     margin-bottom: 25px;
     border-bottom: 2px solid #eee; /* Linha sutil abaixo do título */
     padding-bottom: 10px;
+    text-align: center; /* Centraliza os títulos das seções */
 }
 
 ul {
@@ -160,6 +169,7 @@ ul li {
     padding-left: 25px;
     position: relative;
     font-size: 1.1em;
+    line-height: 1.5; /* Melhora a leitura */
 }
 
 ul li::before {
@@ -197,12 +207,11 @@ footer {
         opacity: 0;
     }
     to {
-        transform: translateY(0);
         opacity: 1;
     }
 }
 
-header,
+/* O header não existe mais explicitamente, hero está no lugar */
 nav,
 section,
 footer {
@@ -220,71 +229,197 @@ html {
 
 /* Estilo para links dentro do conteúdo */
 section p a {
-    color: #d6b10e;
+    color: #8a2be2;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
 section p a:hover {
-    color: #2d2d2d;
+    color: #5a1e9e;
     text-decoration: underline;
 }
 
-/* Estilos responsivos básicos */
-@media (max-width: 768px) {
-    .hero-content {
-        flex-direction: column; /* Empilha a foto e o texto em telas menores */
-        text-align: center;
-        padding: 15px;
-    }
+/* ======================================================= */
+/* RESPONSIVIDADE PARA DISPOSITIVOS MÓVEIS                */
+/* ======================================================= */
 
-    .foto-perfil {
-        margin-right: 0;
-        margin-bottom: 20px; /* Espaçamento abaixo da foto */
-    }
-
+/* Para telas menores que 992px (típico para tablets em modo paisagem e menores) */
+@media (max-width: 992px) {
     .hero h1 {
-        font-size: 3em;
+        font-size: 3.5em; /* Reduz um pouco o título principal */
     }
 
     .hero-cargo {
-        font-size: 1.5em;
+        font-size: 1.6em; /* Reduz um pouco o cargo */
     }
 
-    .hero-tech-icons {
-        justify-content: center; /* Centraliza os ícones */
+    .foto-perfil {
+        width: 160px;
+        height: 160px;
+        margin-right: 30px; /* Reduz a margem */
     }
 
+    .hero-tech-icons img {
+        width: 40px;
+        height: 40px;
+    }
+
+    section {
+        padding: 40px 15px; /* Reduz o padding horizontal das seções */
+    }
+
+    section h2 {
+        font-size: 2em;
+    }
+
+    nav a {
+        margin-left: 20px;
+    }
+}
+
+
+/* Para telas menores que 768px (típico para tablets em modo retrato e celulares grandes) */
+@media (max-width: 768px) {
     nav {
         justify-content: space-around; /* Distribui os links uniformemente */
         padding: 10px;
     }
 
     nav a {
-        margin: 0 10px;
+        margin: 0 8px; /* Espaçamento menor entre links */
+        font-size: 0.9em; /* Tamanho da fonte menor */
+    }
+
+    .hero {
+        height: auto; /* Altura automática para se ajustar ao conteúdo */
+        padding: 40px 15px; /* Aumenta um pouco o padding vertical do hero */
+    }
+
+    .hero-content {
+        flex-direction: column; /* Empilha a foto e o texto */
+        text-align: center; /* Centraliza o texto */
+        align-items: center; /* Centraliza itens na coluna */
+    }
+
+    .foto-perfil {
+        margin-right: 0; /* Remove a margem direita */
+        margin-bottom: 25px; /* Adiciona margem abaixo da foto */
+        width: 140px; /* Reduz o tamanho da foto */
+        height: 140px;
+    }
+
+    .hero-info {
+        text-align: center; /* Centraliza o texto dentro do hero-info */
+    }
+
+    .hero h1 {
+        font-size: 3em; /* Reduz ainda mais o título principal */
+    }
+
+    .hero-cargo {
+        font-size: 1.4em; /* Reduz ainda mais o cargo */
+        margin-top: 5px; /* Ajusta margem */
+    }
+
+    .hero-tech-icons {
+        justify-content: center; /* Centraliza os ícones */
+        gap: 10px; /* Reduz o espaçamento entre os ícones */
+        margin-top: 15px; /* Ajusta margem */
+    }
+
+    .hero-tech-icons img {
+        width: 38px;
+        height: 38px;
     }
 
     section {
-        padding: 30px 15px;
+        padding: 30px 15px; /* Padding menor nas seções */
+        margin: 20px auto; /* Menos espaço entre as seções */
     }
 
     section h2 {
         font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+
+    ul li {
+        font-size: 1em; /* Reduz o tamanho da fonte das listas */
+    }
+
+    footer {
+        padding: 20px 15px; /* Reduz padding do footer */
+        font-size: 0.85em;
     }
 }
 
+/* Para telas menores que 480px (típico para celulares pequenos) */
 @media (max-width: 480px) {
+    nav {
+        flex-direction: column; /* Empilha os links de navegação */
+        align-items: center; /* Centraliza os links */
+        padding: 10px 0; /* Ajusta padding */
+    }
+
+    nav a {
+        margin: 5px 0; /* Espaçamento vertical entre os links */
+        font-size: 1em; /* Volta a um tamanho razoável */
+    }
+
+    .hero {
+        padding: 30px 10px; /* Mais compacto no hero */
+    }
+
+    .foto-perfil {
+        width: 120px; /* Foto ainda menor */
+        height: 120px;
+        border-width: 3px; /* Borda mais fina */
+    }
+
     .hero h1 {
-        font-size: 2.5em;
+        font-size: 2.5em; /* Título bem menor */
     }
 
     .hero-cargo {
-        font-size: 1.2em;
+        font-size: 1.2em; /* Cargo menor */
     }
 
     .hero-tech-icons img {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
+        padding: 3px;
+    }
+
+    section {
+        padding: 25px 10px; /* Padding mínimo nas seções */
+    }
+
+    section h2 {
+        font-size: 1.6em;
+    }
+
+    ul li {
+        font-size: 0.95em;
+        padding-left: 20px; /* Ajusta padding para o marcador */
+    }
+}
+
+/* Para telas muito pequenas (ex: iPhones 5/SE antigos) */
+@media (max-width: 320px) {
+    .hero h1 {
+        font-size: 2em;
+    }
+
+    .hero-cargo {
+        font-size: 1em;
+    }
+
+    .hero-tech-icons img {
+        width: 25px;
+        height: 25px;
+    }
+
+    nav a {
+        font-size: 0.9em;
     }
 }
