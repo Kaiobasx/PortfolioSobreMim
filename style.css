@@ -151,7 +151,7 @@ section {
 }
 
 section h2 {
-    color: #8a2be2; /* Cor roxa para os títulos das seções */
+    color: #d6b10e; /* Cor roxa para os títulos das seções */
     font-size: 2.2em;
     margin-bottom: 25px;
     border-bottom: 2px solid #eee; /* Linha sutil abaixo do título */
@@ -229,14 +229,14 @@ html {
 
 /* Estilo para links dentro do conteúdo */
 section p a {
-    color: #8a2be2;
+    color: #d6b10e;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
 section p a:hover {
-    color: #5a1e9e;
+    color: #353536;
     text-decoration: underline;
 }
 
